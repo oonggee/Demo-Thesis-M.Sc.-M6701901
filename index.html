@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+    <meta name="description"
+        content="T2D HealthMate - Personalized Health Chatbot with Points System for Type 2 Diabetes Management. แอปผู้ช่วยดูแลสุขภาพผู้ป่วยเบาหวานชนิดที่ 2">
+    <meta name="theme-color" content="#0D9488" id="metaTheme">
+    <title>T2D HealthMate - แอปดูแลสุขภาพเบาหวาน</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1 class="sr-only">T2D HealthMate - แอปดูแลสุขภาพผู้ป่วยเบาหวานชนิดที่ 2</h1>
+    <div class="stage">
+
+        <!-- ===== PRESENTER PANEL (desktop only) ===== -->
+        <aside class="demo-panel" id="demoPanel" aria-label="Demo controls">
+            <div class="dp-brand"><span class="dp-logo">💚</span> T2D Health<span>Mate</span></div>
+            <p class="dp-sub">Interactive prototype · ต้นแบบทดลองใช้งาน</p>
+            <p class="dp-thesis">Development and Evaluation of a Personalized Health Chatbot with a Points System to
+                Improve Self-Management in Patients with Type 2 Diabetes</p>
+            <div class="dp-title">Demo Controls · ควบคุมการสาธิต</div>
+            <button class="dp-btn" onclick="demoAction('seed')"><i class="fas fa-wand-magic-sparkles"></i>
+                <span>Load sample data<small>โหลดข้อมูลตัวอย่าง 14 วัน</small></span></button>
+            <button class="dp-btn" onclick="demoAction('points')"><i class="fas fa-star"></i>
+                <span>Give +50 points<small>ทดสอบการอัปเลเวล</small></span></button>
+            <button class="dp-btn" onclick="demoAction('high')"><i class="fas fa-triangle-exclamation"></i>
+                <span>Simulate high glucose<small>จำลองน้ำตาลสูง 245 mg/dL</small></span></button>
+            <button class="dp-btn" onclick="demoAction('dark')"><i class="fas fa-moon"></i>
+                <span>Toggle dark mode<small>สลับโหมดมืด/สว่าง</small></span></button>
+            <button class="dp-btn danger" onclick="demoAction('reset')"><i class="fas fa-rotate-left"></i>
+                <span>Reset demo<small>ล้างข้อมูลและเริ่มใหม่</small></span></button>
+            <div class="dp-foot">All data stays in your browser · ข้อมูลเก็บในเครื่องเท่านั้น</div>
+        </aside>
+
+        <div id="app">
+            <div class="notch" aria-hidden="true"></div>
+            <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+            <canvas id="fxCanvas" aria-hidden="true"></canvas>
+
+            <!-- ===== SPLASH ===== -->
+            <div id="splash" class="page active" onclick="skipSplash()">
+                <div class="splash-icon">💚</div>
+                <div class="logo">T2D Health<span>Mate</span></div>
+                <div class="tagline">Personalized Diabetes Health Companion</div>
+                <div class="tagline-th">ผู้ช่วยดูแลสุขภาพเบาหวานส่วนบุคคล</div>
+                <div class="loader"><span></span><span></span><span></span></div>
+            </div>
+
+            <!-- ===== REGISTER (3-step wizard) ===== -->
+            <div id="register" class="page">
+                <div class="reg-hero">
+                    <h2>Welcome! 👋</h2>
+                    <p class="sub">Set up your health profile<br><span class="th-inline">ตั้งค่าโปรไฟล์สุขภาพของคุณ</span></p>
+                    <div class="reg-steps" id="regDots"><span class="active"></span><span></span><span></span></div>
+                </div>
+                <div class="reg-form-wrap">
+                    <form id="regForm" novalidate autocomplete="off">
+                        <div class="reg-step active" data-step="0">
+                            <div class="step-title">Step 1 · About you <span class="th">ข้อมูลเบื้องต้น</span></div>
+                            <div class="fg"><label for="rName">Full Name <span class="th">ชื่อ-นามสกุล</span></label>
+                                <div class="input-icon"><i class="fas fa-user"></i><input type="text" id="rName"
+                                        maxlength="40" placeholder="e.g. สมชาย ใจดี"></div>
+                            </div>
+                            <div class="fg"><label for="rAge">Age <span class="th">อายุ (ปี)</span></label>
+                                <div class="input-icon"><i class="fas fa-calendar"></i><input type="number" id="rAge"
+                                        inputmode="numeric" placeholder="55"></div>
+                            </div>
+                        </div>
+                        <div class="reg-step" data-step="1">
+                            <div class="step-title">Step 2 · Body measurements <span class="th">ร่างกาย</span></div>
+                            <div class="fr">
+                                <div class="fg"><label for="rWeight">Weight (kg) <span class="th">น้ำหนัก</span></label>
+                                    <div class="input-icon"><i class="fas fa-weight-scale"></i><input type="number"
+                                            id="rWeight" inputmode="decimal" placeholder="72"></div>
+                                </div>
+                                <div class="fg"><label for="rHeight">Height (cm) <span class="th">ส่วนสูง</span></label>
+                                    <div class="input-icon"><i class="fas fa-ruler-vertical"></i><input type="number"
+                                            id="rHeight" inputmode="numeric" placeholder="170"></div>
+                                </div>
+                            </div>
+                            <div class="bmi-preview" id="regBmi">
+                                <i class="fas fa-heart-pulse"></i>
+                                <span>Enter weight &amp; height to see your BMI<br><small>กรอกน้ำหนักและส่วนสูงเพื่อดูค่า BMI</small></span>
+                            </div>
+                        </div>
+                        <div class="reg-step" data-step="2">
+                            <div class="step-title">Step 3 · Diabetes data <span class="th">ข้อมูลเบาหวาน</span></div>
+                            <div class="fr">
+                                <div class="fg"><label for="rHba1c">HbA1c (%) <span class="th">น้ำตาลสะสม</span></label>
+                                    <div class="input-icon"><i class="fas fa-chart-line"></i><input type="number"
+                                            step="0.1" id="rHba1c" inputmode="decimal" placeholder="6.5"></div>
+                                </div>
+                                <div class="fg"><label for="rTarget">Target BS <span class="th">เป้าน้ำตาล (mg/dL)</span></label>
+                                    <div class="input-icon"><i class="fas fa-bullseye"></i><input type="number"
+                                            id="rTarget" inputmode="numeric" value="120"></div>
+                                </div>
+                            </div>
+                            <label class="consent"><input type="checkbox" id="rConsent"><span>I agree to the <a
+                                        href="#" onclick="openPolicy();return false;">Privacy Policy</a><br><small>ยอมรับนโยบายความเป็นส่วนตัว</small></span></label>
+                        </div>
+                        <div class="reg-err" id="regErr" role="alert"></div>
+                        <div class="reg-actions">
+                            <button type="button" class="btn btn-ghost" id="regBack" style="display:none">← Back · ย้อนกลับ</button>
+                            <button type="submit" class="btn btn-pri" id="regNext">Next · ถัดไป →</button>
+                        </div>
+                    </form>
+                    <button type="button" class="link-btn" onclick="startDemoProfile()"><i
+                            class="fas fa-wand-magic-sparkles"></i> Try with a demo profile · ลองใช้โปรไฟล์ตัวอย่าง</button>
+                </div>
+            </div>
+
+            <!-- ===== HOME ===== -->
+            <div id="home" class="page">
+                <div class="hdr">
+                    <div class="hdr-left">
+                        <div class="greet" id="homeGreet">Good Morning<span class="th">สวัสดีตอนเช้า</span></div>
+                        <strong id="homeUser">User</strong>
+                    </div>
+                    <div class="hdr-right">
+                        <button class="hdr-notif" onclick="openNotif()" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge" id="notifBadge" style="display:none">0</span>
+                        </button>
+                        <div class="hdr-avatar" id="homeAv" onclick="nav('settings')" role="button" tabindex="0"
+                            aria-label="Profile"><span>U</span></div>
+                    </div>
+                </div>
+
+                <div class="pts-card" onclick="openLevelInfo()" role="button" tabindex="0" aria-label="Level details">
+                    <div class="pts-top">
+                        <div>
+                            <div class="pts-label">LEVEL · เลเวล</div>
+                            <div class="pts-value"><i class="fas fa-star pts-star"></i><span id="ptsLvlText">1</span>
+                            </div>
+                        </div>
+                        <div class="pts-right">
+                            <div class="chip-glass" id="streakChip"><i class="fas fa-fire"></i><span
+                                    id="streakVal">0</span> day streak</div>
+                            <div class="pts-total">Total <b id="ptsTotal">0</b> pts</div>
+                        </div>
+                    </div>
+                    <div class="pts-bar-wrap">
+                        <div class="pts-bar" id="ptsBar" style="width:0%"></div>
+                    </div>
+                    <div class="pts-next" id="ptsNext">0 / 100 pts to Lv.2</div>
+                </div>
+
+                <div class="quick">
+                    <button class="q-item" onclick="openBsModal()"><span class="q-ic q-b"><i
+                                class="fas fa-droplet"></i></span><span>Sugar<small>น้ำตาล</small></span></button>
+                    <button class="q-item" onclick="goMeds()"><span class="q-ic q-y"><i
+                                class="fas fa-pills"></i></span><span>Meds<small>กินยา</small></span></button>
+                    <button class="q-item" onclick="nav('ocr')"><span class="q-ic q-v"><i
+                                class="fas fa-camera"></i></span><span>Scan<small>สแกนยา</small></span></button>
+                    <button class="q-item" onclick="nav('chat')"><span class="q-ic q-g"><i
+                                class="fas fa-comment-medical"></i></span><span>Coach<small>โค้ช</small></span></button>
+                </div>
+
+                <div class="today-card" id="todayCard"></div>
+                <div id="waterCard"></div>
+
+                <div class="sec-title">Daily Tasks <span class="th">ภารกิจประจำวัน</span></div>
+                <div class="task-list" id="dailyTasks"></div>
+
+                <div class="sec-title">Weekly Challenges <span class="th">ภารกิจประจำสัปดาห์</span></div>
+                <div class="task-list" id="weeklyTasks"></div>
+
+                <div class="sec-title">Monthly Challenge <span class="th">ภารกิจประจำเดือน</span></div>
+                <div class="task-list" id="monthlyTasks"></div>
+
+                <div id="tipCard"></div>
+            </div>
+
+            <!-- ===== DASHBOARD ===== -->
+            <div id="dashboard" class="page">
+                <div class="page-head">
+                    <h2>Health Dashboard <span class="th">แดชบอร์ดสุขภาพ</span></h2>
+                    <button class="icon-btn" onclick="openBsModal()" aria-label="Log blood sugar"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="dash-grid" id="dashStats"></div>
+
+                <div class="card" id="trendCard">
+                    <div class="card-head">
+                        <div class="card-title">Blood Sugar Trend<span class="th">แนวโน้มน้ำตาลในเลือด</span></div>
+                        <div class="seg" id="rangeSeg">
+                            <button data-r="7" class="on" onclick="setRange(7)">7D</button>
+                            <button data-r="14" onclick="setRange(14)">14D</button>
+                            <button data-r="30" onclick="setRange(30)">30D</button>
+                        </div>
+                    </div>
+                    <div class="trend-info" id="trendInfo"></div>
+                    <div id="bsChart"></div>
+                    <div class="mini-stats" id="trendStats"></div>
+                </div>
+
+                <div class="card" id="bmiCard"></div>
+
+                <div class="sec-title" id="medsAnchor">Medications Today <span class="th">ยาประจำวันนี้</span>
+                    <button class="sec-link" onclick="openMedModal()"><i class="fas fa-plus"></i> Add · เพิ่ม</button>
+                </div>
+                <div class="card adh-card" id="adhCard"></div>
+                <div class="med-log" id="medList"></div>
+
+                <div class="sec-title">Recent Readings <span class="th">บันทึกล่าสุด</span></div>
+                <div class="card list-card" id="readingList"></div>
+            </div>
+
+            <!-- ===== CHAT ===== -->
+            <div id="chat" class="page">
+                <div class="chat-hdr">
+                    <div class="chat-av"><i class="fas fa-robot"></i><span class="online-dot"></span></div>
+                    <div class="chat-hdr-info">
+                        <h3>Health Coach · โค้ชสุขภาพ</h3>
+                        <p>Online · AI-powered · ออนไลน์</p>
+                    </div>
+                    <button class="icon-btn ghost" onclick="clearChat()" aria-label="Clear chat" title="Clear chat"><i
+                            class="fas fa-broom"></i></button>
+                </div>
+                <div class="chat-body" id="chatBody"></div>
+                <div class="chips" id="chipArea"></div>
+                <div class="chat-in">
+                    <input type="text" id="chatIn" placeholder="Type a message... · พิมพ์ข้อความ..." maxlength="300"
+                        onkeydown="if(event.key==='Enter')sendMsg()" aria-label="Message">
+                    <button onclick="sendMsg()" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <!-- ===== OCR SCAN ===== -->
+            <div id="ocr" class="page">
+                <div class="page-head">
+                    <div class="ph-left">
+                        <div class="ph-ic"><i class="fas fa-pills"></i></div>
+                        <h2>Scan Medication <span class="th">สแกนฉลากยา</span></h2>
+                    </div>
+                </div>
+                <div class="ocr-body">
+                    <div class="ocr-zone" onclick="openCamera()" role="button" tabindex="0">
+                        <div class="ocr-zone-ic"><i class="fas fa-camera"></i></div>
+                        <p class="oz-main">Tap to scan medication</p>
+                        <p class="oz-sub">แตะเพื่อสแกนฉลากยา</p>
+                    </div>
+                    <div class="ocr-btns">
+                        <button class="btn btn-pri" onclick="runOCR()"><i class="fas fa-wand-magic-sparkles"></i>
+                            &nbsp;Demo Scan · ทดลองสแกน</button>
+                        <button class="btn btn-soft" onclick="$('galleryInput').click()"><i class="fas fa-images"></i>
+                            &nbsp;Gallery · แกลเลอรี่</button>
+                    </div>
+                    <input type="file" id="galleryInput" accept="image/*" style="display:none">
+                    <div class="demo-note"><i class="fas fa-circle-info"></i> Demo mode: scan results are simulated ·
+                        ผลสแกนเป็นข้อมูลจำลอง</div>
+
+                    <div class="ocr-preview" id="ocrPreview"><img id="ocrPreviewImg" alt="Scanned medication label">
+                    </div>
+                    <div class="ocr-processing" id="ocrProcessing">
+                        <div class="ocr-proc-spinner"></div>
+                        <h4>Analyzing Medication Label...</h4>
+                        <p class="th">กำลังวิเคราะห์ฉลากยา</p>
+                        <div class="ocr-proc-steps">
+                            <div class="ocr-step active" id="ocrStep1"><i class="fas fa-circle"></i> Detecting text ·
+                                ตรวจจับข้อความ</div>
+                            <div class="ocr-step" id="ocrStep2"><i class="fas fa-circle"></i> Extracting drug info ·
+                                สกัดข้อมูลยา</div>
+                            <div class="ocr-step" id="ocrStep3"><i class="fas fa-circle"></i> Matching database ·
+                                ค้นหาฐานข้อมูล</div>
+                        </div>
+                    </div>
+                    <div class="ocr-result" id="ocrResult">
+                        <h4><i class="fas fa-check-circle"></i> Scan Result <span class="th">ผลสแกน</span>
+                            <span class="conf" id="ocrConf">98% match</span></h4>
+                        <div class="ocr-row"><span>Drug Name <small>ชื่อยา</small></span><strong id="ocrDrug">-</strong></div>
+                        <div class="ocr-row"><span>Dosage <small>ขนาดยา</small></span><strong id="ocrDose">-</strong></div>
+                        <div class="ocr-row"><span>Frequency <small>ความถี่</small></span><strong id="ocrFreq">-</strong></div>
+                        <div class="ocr-row"><span>Type <small>ประเภท</small></span><strong id="ocrType">-</strong></div>
+                        <div class="ocr-row"><span>Instructions <small>วิธีใช้</small></span><strong id="ocrNote">-</strong></div>
+                        <div class="ocr-row"><span>Side Effects <small>ผลข้างเคียง</small></span><strong id="ocrSide">-</strong></div>
+                        <div class="ocr-actions">
+                            <button class="btn btn-pri" onclick="addScannedMed()"><i class="fas fa-plus"></i> Add to my meds · เพิ่มในรายการยา</button>
+                            <button class="btn btn-soft" onclick="askAboutScanned()"><i class="fas fa-comment-medical"></i> Ask Coach · ถามโค้ช</button>
+                        </div>
+                    </div>
+
+                    <div class="sec-title flush" id="scanHistTitle" style="display:none">Recent scans <span
+                            class="th">สแกนล่าสุด</span></div>
+                    <div class="card list-card" id="scanHist" style="display:none"></div>
+                </div>
+            </div>
+
+            <!-- ===== SETTINGS ===== -->
+            <div id="settings" class="page">
+                <div class="set-hdr">
+                    <div class="set-avatar" id="setAvatar" onclick="$('profileInput').click()">U<div class="cam-badge"><i
+                                class="fas fa-camera"></i></div>
+                    </div>
+                    <input type="file" id="profileInput" accept="image/*" style="display:none">
+                    <h3 id="setName">User</h3>
+                    <p id="setNameTh">ผู้ป่วยเบาหวานชนิดที่ 2</p>
+                    <div class="set-badges" id="setBadges"></div>
+                </div>
+                <div class="set-sec">
+                    <h4>Personal Info · ข้อมูลส่วนตัว</h4>
+                    <div class="set-card">
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-user"></i><div class="sr-text">Name <span class="th">ชื่อ</span></div></div><span id="sDispName">-</span></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-calendar"></i><div class="sr-text">Age <span class="th">อายุ</span></div></div><span id="sDispAge">-</span></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-ruler-vertical"></i><div class="sr-text">Height <span class="th">ส่วนสูง</span></div></div><span id="sDispHeight">-</span></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-weight-scale"></i><div class="sr-text">Weight <span class="th">น้ำหนัก</span></div></div><span id="sDispWeight">-</span></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-heart-pulse"></i><div class="sr-text">BMI <span class="th">ดัชนีมวลกาย</span></div></div><span id="sDispBmi">-</span></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-chart-line"></i><div class="sr-text">HbA1c <span class="th">น้ำตาลสะสม</span></div></div><span id="sDispHba1c">-</span></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-bullseye"></i><div class="sr-text">Target BS <span class="th">เป้าน้ำตาล</span></div></div><span id="sDispTarget">-</span></div>
+                        <div class="set-row clickable" onclick="openEditProfile()">
+                            <div class="set-row-left"><i class="fas fa-pen"></i>
+                                <div class="sr-text pri">Edit Profile <span class="th">แก้ไขโปรไฟล์</span></div>
+                            </div><i class="fas fa-chevron-right chev"></i>
+                        </div>
+                    </div>
+                    <h4>App Settings · ตั้งค่าแอป</h4>
+                    <div class="set-card">
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-moon"></i><div class="sr-text">Dark Mode <span class="th">โหมดมืด</span></div></div><div class="toggle" id="darkToggle" onclick="toggleDark()" role="switch" tabindex="0"></div></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-bell"></i><div class="sr-text">Notifications <span class="th">การแจ้งเตือน</span></div></div><div class="toggle on" id="notiToggle" onclick="toggleNoti()" role="switch" tabindex="0"></div></div>
+                        <div class="set-row clickable" onclick="openPolicy()"><div class="set-row-left"><i class="fas fa-shield-halved"></i><div class="sr-text">Privacy Policy <span class="th">นโยบายความเป็นส่วนตัว</span></div></div><i class="fas fa-chevron-right chev"></i></div>
+                        <div class="set-row"><div class="set-row-left"><i class="fas fa-circle-info"></i><div class="sr-text">About <span class="th">เกี่ยวกับแอป</span></div></div><span class="ver">v 0.2.0</span></div>
+                    </div>
+                    <h4>Data · ข้อมูล</h4>
+                    <div class="set-card">
+                        <div class="set-row clickable" onclick="exportCSV()"><div class="set-row-left"><i class="fas fa-file-arrow-down"></i><div class="sr-text">Export readings (CSV) <span class="th">ส่งออกข้อมูลน้ำตาล</span></div></div><i class="fas fa-chevron-right chev"></i></div>
+                        <div class="set-row clickable" onclick="seedSampleData()"><div class="set-row-left"><i class="fas fa-wand-magic-sparkles"></i><div class="sr-text">Load sample data <span class="th">โหลดข้อมูลตัวอย่าง</span></div></div><i class="fas fa-chevron-right chev"></i></div>
+                    </div>
+                    <div class="set-card" style="margin-top:4px">
+                        <div class="set-row danger clickable" onclick="logout()"><div class="set-row-left"><i class="fas fa-right-from-bracket"></i><div class="sr-text">Logout &amp; clear data <span class="th">ออกจากระบบและล้างข้อมูล</span></div></div><i class="fas fa-chevron-right chev"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== BLOOD SUGAR MODAL ===== -->
+            <div class="modal-overlay" id="bsModal" onclick="if(event.target===this)closeModal('bsModal')">
+                <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Log blood sugar">
+                    <div class="modal-handle"></div>
+                    <h3>Log Blood Sugar <span class="th">บันทึกระดับน้ำตาล</span></h3>
+                    <div class="bs-input-wrap">
+                        <button class="step-btn" onclick="stepBs(-5)" aria-label="Decrease">−</button>
+                        <div class="bs-input">
+                            <input type="number" id="bsVal" inputmode="numeric" min="20" max="600" placeholder="--"
+                                oninput="updateBsPreview()">
+                            <span>mg/dL</span>
+                        </div>
+                        <button class="step-btn" onclick="stepBs(5)" aria-label="Increase">+</button>
+                    </div>
+                    <div class="bs-preview" id="bsPreview">Enter your reading · กรอกค่าที่วัดได้</div>
+                    <div class="ctx-label">When did you measure? · วัดเมื่อไหร่</div>
+                    <div class="ctx-chips" id="bsCtx"></div>
+                    <button class="btn btn-pri" onclick="saveBs()" style="margin-top:14px"><i class="fas fa-check"></i>
+                        Save · บันทึก</button>
+                </div>
+            </div>
+
+            <!-- ===== ADD MEDICATION MODAL ===== -->
+            <div class="modal-overlay" id="medModal" onclick="if(event.target===this)closeModal('medModal')">
+                <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Add medication">
+                    <div class="modal-handle"></div>
+                    <h3>Add Medication <span class="th">เพิ่มรายการยา</span></h3>
+                    <div class="fg"><label for="medName">Drug name <span class="th">ชื่อยา</span></label><input
+                            type="text" id="medName" maxlength="40" placeholder="e.g. Metformin"></div>
+                    <div class="fr">
+                        <div class="fg"><label for="medDose">Dose <span class="th">ขนาดยา</span></label><input
+                                type="text" id="medDose" maxlength="20" placeholder="500 mg"></div>
+                        <div class="fg"><label for="medTime">Time <span class="th">เวลา</span></label><input
+                                type="time" id="medTime" value="08:00"></div>
+                    </div>
+                    <button class="btn btn-pri" onclick="saveMed()"><i class="fas fa-plus"></i> Add · เพิ่ม</button>
+                </div>
+            </div>
+
+            <!-- ===== HBA1C MODAL ===== -->
+            <div class="modal-overlay" id="hbModal" onclick="if(event.target===this)closeModal('hbModal')">
+                <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Update HbA1c">
+                    <div class="modal-handle"></div>
+                    <h3>Update HbA1c <span class="th">อัปเดตค่าน้ำตาลสะสม</span></h3>
+                    <div class="hb-prev" id="hbPrev"></div>
+                    <div class="fg"><label for="hbVal">New HbA1c (%) <span class="th">ค่าล่าสุดจากแล็บ</span></label>
+                        <input type="number" step="0.1" id="hbVal" inputmode="decimal" placeholder="6.8"></div>
+                    <button class="btn btn-pri" onclick="saveHba1c()"><i class="fas fa-check"></i> Save · บันทึก</button>
+                </div>
+            </div>
+
+            <!-- ===== EDIT PROFILE MODAL ===== -->
+            <div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeEditModal()">
+                <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Edit profile">
+                    <div class="modal-handle"></div>
+                    <h3>Edit Profile <span class="th">แก้ไขโปรไฟล์</span></h3>
+                    <div class="fg"><label for="editName">Name <span class="th">ชื่อ</span></label><input type="text"
+                            id="editName" maxlength="40"></div>
+                    <div class="fr">
+                        <div class="fg"><label for="editAge">Age <span class="th">อายุ</span></label><input type="number" id="editAge"></div>
+                        <div class="fg"><label for="editHeight">Height (cm) <span class="th">ส่วนสูง</span></label><input type="number" id="editHeight"></div>
+                    </div>
+                    <div class="fr">
+                        <div class="fg"><label for="editWeight">Weight (kg) <span class="th">น้ำหนัก</span></label><input type="number" id="editWeight"></div>
+                        <div class="fg"><label for="editHba1c">HbA1c (%) <span class="th">น้ำตาลสะสม</span></label><input type="number" step="0.1" id="editHba1c"></div>
+                    </div>
+                    <div class="fg"><label for="editTarget">Target BS (mg/dL) <span class="th">เป้าหมายน้ำตาล</span></label><input type="number" id="editTarget"></div>
+                    <button class="btn btn-pri" onclick="saveEditProfile()" style="margin-top:4px">Save · บันทึก</button>
+                </div>
+            </div>
+
+            <!-- ===== POLICY MODAL ===== -->
+            <div class="modal-overlay" id="policyModal" onclick="if(event.target===this)closePolicy()">
+                <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Privacy policy">
+                    <div class="modal-handle"></div>
+                    <h3>Privacy Policy <span class="th">นโยบายความเป็นส่วนตัว</span></h3>
+                    <div class="policy-body">
+                        <p><strong>Data Collection · การเก็บข้อมูล</strong><br>This application collects personal health
+                            data including name, age, weight, height, HbA1c levels, blood sugar readings, and medication
+                            logs to provide personalized health management recommendations.<br>แอปนี้เก็บข้อมูลสุขภาพส่วนบุคคล เพื่อให้คำแนะนำที่เหมาะสม</p>
+                        <p><strong>Data Storage · การจัดเก็บ</strong><br>All data is stored locally on your device using
+                            localStorage. No data is transmitted to external servers in this version.<br>ข้อมูลทั้งหมดจัดเก็บในเครื่องของคุณ ไม่มีการส่งข้อมูลออกภายนอก</p>
+                        <p><strong>Purpose · วัตถุประสงค์</strong><br>This app is developed as part of the research:
+                            "Development and Evaluation of a Personalized Health Chatbot with a Points System to Improve
+                            Self-Management in Patients with Type 2 Diabetes"<br>แอปนี้พัฒนาเป็นส่วนหนึ่งของงานวิจัย</p>
+                        <p><strong>Medical Disclaimer · ข้อสงวนทางการแพทย์</strong><br>This app is not a substitute for
+                            professional medical advice. Always consult your doctor.<br>แอปนี้ไม่ใช่การวินิจฉัยโรค ควรปรึกษาแพทย์เสมอ</p>
+                        <p><strong>Contact · ติดต่อ</strong><br>For questions, contact the research team.<br>สอบถามเพิ่มเติม ติดต่อทีมวิจัย</p>
+                    </div>
+                    <button class="btn btn-pri" onclick="closePolicy()" style="margin-top:12px">Close · ปิด</button>
+                </div>
+            </div>
+
+            <!-- ===== NOTIFICATION MODAL ===== -->
+            <div class="modal-overlay top-modal" id="notifModal" onclick="if(event.target===this)closeNotif()">
+                <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Notifications">
+                    <h3>Notifications <span class="th">การแจ้งเตือน</span></h3>
+                    <div class="notif-list" id="notifList"></div>
+                    <button class="btn btn-pri" onclick="markAllRead()" style="margin-top:14px">Mark All as Read · อ่านทั้งหมดแล้ว</button>
+                </div>
+            </div>
+
+            <!-- ===== LEVEL INFO MODAL ===== -->
+            <div class="modal-overlay" id="lvlModal" onclick="if(event.target===this)closeLevelInfo()">
+                <div class="modal-sheet tall" role="dialog" aria-modal="true" aria-label="Level details">
+                    <div class="modal-handle"></div>
+                    <h3>Level &amp; Achievements <span class="th">เลเวลและความสำเร็จ</span></h3>
+                    <div id="lvlModalBody" class="lvl-body"></div>
+                    <button class="btn btn-pri" onclick="closeLevelInfo()" style="margin-top:8px">Close · ปิด</button>
+                </div>
+            </div>
+
+            <!-- ===== LEVEL UP ===== -->
+            <div class="modal-overlay center" id="lvlUpModal" onclick="closeModal('lvlUpModal')">
+                <div class="center-card levelup">
+                    <div class="lu-glow"></div>
+                    <div class="lu-star"><i class="fas fa-star"></i></div>
+                    <div class="lu-title">LEVEL UP!</div>
+                    <div class="lu-level" id="luLevel">2</div>
+                    <p>Great work keeping up your health habits!<br><span class="th">เยี่ยมมาก! คุณดูแลสุขภาพได้ต่อเนื่อง</span></p>
+                    <button class="btn btn-gold" onclick="closeModal('lvlUpModal')">Awesome! · เยี่ยม!</button>
+                </div>
+            </div>
+
+            <!-- ===== CONFIRM ===== -->
+            <div class="modal-overlay center" id="confirmModal" onclick="if(event.target===this)closeModal('confirmModal')">
+                <div class="center-card">
+                    <div class="cf-ic" id="cfIc"><i class="fas fa-circle-question"></i></div>
+                    <h3 id="cfTitle">Are you sure?</h3>
+                    <p id="cfMsg"></p>
+                    <div class="cf-btns">
+                        <button class="btn btn-ghost" onclick="closeModal('confirmModal')">Cancel · ยกเลิก</button>
+                        <button class="btn btn-pri" id="cfOk">OK</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== BOTTOM NAV ===== -->
+            <nav class="bnav" id="bnav" aria-label="Main navigation">
+                <div class="bnav-inner">
+                    <div class="bnav-item active" data-page="home" onclick="nav('home')"><i class="fas fa-home"></i><span class="nav-label">Home<span class="nav-th">หน้าหลัก</span></span></div>
+                    <div class="bnav-item" data-page="dashboard" onclick="nav('dashboard')"><i class="fas fa-chart-pie"></i><span class="nav-label">Dashboard<span class="nav-th">สถิติ</span></span></div>
+                    <div class="bnav-item" data-page="chat" onclick="nav('chat')"><i class="fas fa-comment-medical"></i><span class="nav-label">Chat<span class="nav-th">แชท</span></span></div>
+                    <div class="bnav-item" data-page="ocr" onclick="nav('ocr')"><i class="fas fa-qrcode"></i><span class="nav-label">Scan<span class="nav-th">สแกน</span></span></div>
+                    <div class="bnav-item" data-page="settings" onclick="nav('settings')"><i class="fas fa-cog"></i><span class="nav-label">Settings<span class="nav-th">ตั้งค่า</span></span></div>
+                </div>
+            </nav>
+
+            <!-- ===== CAMERA VIEWFINDER ===== -->
+            <div class="cam-overlay" id="camOverlay">
+                <div class="cam-topbar">
+                    <button class="cam-btn" onclick="closeCamera()" aria-label="Close camera"><i class="fas fa-xmark"></i></button>
+                    <span class="cam-title">Medication Scanner<br><span class="th-inline">สแกนฉลากยา</span></span>
+                    <button class="cam-btn" id="camFlash" onclick="toggleFlash()" aria-label="Flash"><i class="fas fa-bolt"></i></button>
+                </div>
+                <div class="cam-viewfinder" id="camVf">
+                    <video id="camVideo" playsinline muted autoplay></video>
+                    <div class="cam-scan-frame">
+                        <div class="cam-corner tl"></div><div class="cam-corner tr"></div>
+                        <div class="cam-corner bl"></div><div class="cam-corner br"></div>
+                        <div class="cam-scan-line"></div>
+                    </div>
+                    <p class="cam-hint">Position the medication label inside the frame<br><span class="th-inline">วางฉลากยาไว้ในกรอบ</span></p>
+                    <p class="cam-hint sm" id="camMode"></p>
+                </div>
+                <div class="cam-controls">
+                    <button class="cam-btn-sm" onclick="closeCamera();$('galleryInput').click()" aria-label="Gallery"><i class="fas fa-images"></i></button>
+                    <button class="cam-shutter" onclick="capturePhoto()" aria-label="Capture"><div class="cam-shutter-inner"></div></button>
+                    <button class="cam-btn-sm" onclick="switchCamera()" aria-label="Switch camera"><i class="fas fa-rotate"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
