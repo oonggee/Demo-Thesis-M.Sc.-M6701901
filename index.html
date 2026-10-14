@@ -11,10 +11,13 @@
     <title>T2D HealthMate - แอปดูแลสุขภาพเบาหวาน</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+555555
 
 <body>
     <h1 class="sr-only">T2D HealthMate - แอปดูแลสุขภาพผู้ป่วยเบาหวานชนิดที่ 2</h1>
@@ -58,7 +61,8 @@
             <div id="register" class="page">
                 <div class="reg-hero">
                     <h2>Welcome! 👋</h2>
-                    <p class="sub">Set up your health profile<br><span class="th-inline">ตั้งค่าโปรไฟล์สุขภาพของคุณ</span></p>
+                    <p class="sub">Set up your health profile<br><span
+                            class="th-inline">ตั้งค่าโปรไฟล์สุขภาพของคุณ</span></p>
                     <div class="reg-steps" id="regDots"><span class="active"></span><span></span><span></span></div>
                 </div>
                 <div class="reg-form-wrap">
@@ -88,7 +92,8 @@
                             </div>
                             <div class="bmi-preview" id="regBmi">
                                 <i class="fas fa-heart-pulse"></i>
-                                <span>Enter weight &amp; height to see your BMI<br><small>กรอกน้ำหนักและส่วนสูงเพื่อดูค่า BMI</small></span>
+                                <span>Enter weight &amp; height to see your
+                                    BMI<br><small>กรอกน้ำหนักและส่วนสูงเพื่อดูค่า BMI</small></span>
                             </div>
                         </div>
                         <div class="reg-step" data-step="2">
@@ -98,22 +103,26 @@
                                     <div class="input-icon"><i class="fas fa-chart-line"></i><input type="number"
                                             step="0.1" id="rHba1c" inputmode="decimal" placeholder="6.5"></div>
                                 </div>
-                                <div class="fg"><label for="rTarget">Target BS <span class="th">เป้าน้ำตาล (mg/dL)</span></label>
+                                <div class="fg"><label for="rTarget">Target BS <span class="th">เป้าน้ำตาล
+                                            (mg/dL)</span></label>
                                     <div class="input-icon"><i class="fas fa-bullseye"></i><input type="number"
                                             id="rTarget" inputmode="numeric" value="120"></div>
                                 </div>
                             </div>
-                            <label class="consent"><input type="checkbox" id="rConsent"><span>I agree to the <a
-                                        href="#" onclick="openPolicy();return false;">Privacy Policy</a><br><small>ยอมรับนโยบายความเป็นส่วนตัว</small></span></label>
+                            <label class="consent"><input type="checkbox" id="rConsent"><span>I agree to the <a href="#"
+                                        onclick="openPolicy();return false;">Privacy
+                                        Policy</a><br><small>ยอมรับนโยบายความเป็นส่วนตัว</small></span></label>
                         </div>
                         <div class="reg-err" id="regErr" role="alert"></div>
                         <div class="reg-actions">
-                            <button type="button" class="btn btn-ghost" id="regBack" style="display:none">← Back · ย้อนกลับ</button>
+                            <button type="button" class="btn btn-ghost" id="regBack" style="display:none">← Back ·
+                                ย้อนกลับ</button>
                             <button type="submit" class="btn btn-pri" id="regNext">Next · ถัดไป →</button>
                         </div>
                     </form>
                     <button type="button" class="link-btn" onclick="startDemoProfile()"><i
-                            class="fas fa-wand-magic-sparkles"></i> Try with a demo profile · ลองใช้โปรไฟล์ตัวอย่าง</button>
+                            class="fas fa-wand-magic-sparkles"></i> Try with a demo profile ·
+                        ลองใช้โปรไฟล์ตัวอย่าง</button>
                 </div>
             </div>
 
@@ -275,16 +284,25 @@
                     </div>
                     <div class="ocr-result" id="ocrResult">
                         <h4><i class="fas fa-check-circle"></i> Scan Result <span class="th">ผลสแกน</span>
-                            <span class="conf" id="ocrConf">98% match</span></h4>
-                        <div class="ocr-row"><span>Drug Name <small>ชื่อยา</small></span><strong id="ocrDrug">-</strong></div>
-                        <div class="ocr-row"><span>Dosage <small>ขนาดยา</small></span><strong id="ocrDose">-</strong></div>
-                        <div class="ocr-row"><span>Frequency <small>ความถี่</small></span><strong id="ocrFreq">-</strong></div>
-                        <div class="ocr-row"><span>Type <small>ประเภท</small></span><strong id="ocrType">-</strong></div>
-                        <div class="ocr-row"><span>Instructions <small>วิธีใช้</small></span><strong id="ocrNote">-</strong></div>
-                        <div class="ocr-row"><span>Side Effects <small>ผลข้างเคียง</small></span><strong id="ocrSide">-</strong></div>
+                            <span class="conf" id="ocrConf">98% match</span>
+                        </h4>
+                        <div class="ocr-row"><span>Drug Name <small>ชื่อยา</small></span><strong id="ocrDrug">-</strong>
+                        </div>
+                        <div class="ocr-row"><span>Dosage <small>ขนาดยา</small></span><strong id="ocrDose">-</strong>
+                        </div>
+                        <div class="ocr-row"><span>Frequency <small>ความถี่</small></span><strong
+                                id="ocrFreq">-</strong></div>
+                        <div class="ocr-row"><span>Type <small>ประเภท</small></span><strong id="ocrType">-</strong>
+                        </div>
+                        <div class="ocr-row"><span>Instructions <small>วิธีใช้</small></span><strong
+                                id="ocrNote">-</strong></div>
+                        <div class="ocr-row"><span>Side Effects <small>ผลข้างเคียง</small></span><strong
+                                id="ocrSide">-</strong></div>
                         <div class="ocr-actions">
-                            <button class="btn btn-pri" onclick="addScannedMed()"><i class="fas fa-plus"></i> Add to my meds · เพิ่มในรายการยา</button>
-                            <button class="btn btn-soft" onclick="askAboutScanned()"><i class="fas fa-comment-medical"></i> Ask Coach · ถามโค้ช</button>
+                            <button class="btn btn-pri" onclick="addScannedMed()"><i class="fas fa-plus"></i> Add to my
+                                meds · เพิ่มในรายการยา</button>
+                            <button class="btn btn-soft" onclick="askAboutScanned()"><i
+                                    class="fas fa-comment-medical"></i> Ask Coach · ถามโค้ช</button>
                         </div>
                     </div>
 
@@ -297,8 +315,8 @@
             <!-- ===== SETTINGS ===== -->
             <div id="settings" class="page">
                 <div class="set-hdr">
-                    <div class="set-avatar" id="setAvatar" onclick="$('profileInput').click()">U<div class="cam-badge"><i
-                                class="fas fa-camera"></i></div>
+                    <div class="set-avatar" id="setAvatar" onclick="$('profileInput').click()">U<div class="cam-badge">
+                            <i class="fas fa-camera"></i></div>
                     </div>
                     <input type="file" id="profileInput" accept="image/*" style="display:none">
                     <h3 id="setName">User</h3>
@@ -308,13 +326,41 @@
                 <div class="set-sec">
                     <h4>Personal Info · ข้อมูลส่วนตัว</h4>
                     <div class="set-card">
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-user"></i><div class="sr-text">Name <span class="th">ชื่อ</span></div></div><span id="sDispName">-</span></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-calendar"></i><div class="sr-text">Age <span class="th">อายุ</span></div></div><span id="sDispAge">-</span></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-ruler-vertical"></i><div class="sr-text">Height <span class="th">ส่วนสูง</span></div></div><span id="sDispHeight">-</span></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-weight-scale"></i><div class="sr-text">Weight <span class="th">น้ำหนัก</span></div></div><span id="sDispWeight">-</span></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-heart-pulse"></i><div class="sr-text">BMI <span class="th">ดัชนีมวลกาย</span></div></div><span id="sDispBmi">-</span></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-chart-line"></i><div class="sr-text">HbA1c <span class="th">น้ำตาลสะสม</span></div></div><span id="sDispHba1c">-</span></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-bullseye"></i><div class="sr-text">Target BS <span class="th">เป้าน้ำตาล</span></div></div><span id="sDispTarget">-</span></div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-user"></i>
+                                <div class="sr-text">Name <span class="th">ชื่อ</span></div>
+                            </div><span id="sDispName">-</span>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-calendar"></i>
+                                <div class="sr-text">Age <span class="th">อายุ</span></div>
+                            </div><span id="sDispAge">-</span>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-ruler-vertical"></i>
+                                <div class="sr-text">Height <span class="th">ส่วนสูง</span></div>
+                            </div><span id="sDispHeight">-</span>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-weight-scale"></i>
+                                <div class="sr-text">Weight <span class="th">น้ำหนัก</span></div>
+                            </div><span id="sDispWeight">-</span>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-heart-pulse"></i>
+                                <div class="sr-text">BMI <span class="th">ดัชนีมวลกาย</span></div>
+                            </div><span id="sDispBmi">-</span>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-chart-line"></i>
+                                <div class="sr-text">HbA1c <span class="th">น้ำตาลสะสม</span></div>
+                            </div><span id="sDispHba1c">-</span>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-bullseye"></i>
+                                <div class="sr-text">Target BS <span class="th">เป้าน้ำตาล</span></div>
+                            </div><span id="sDispTarget">-</span>
+                        </div>
                         <div class="set-row clickable" onclick="openEditProfile()">
                             <div class="set-row-left"><i class="fas fa-pen"></i>
                                 <div class="sr-text pri">Edit Profile <span class="th">แก้ไขโปรไฟล์</span></div>
@@ -323,18 +369,51 @@
                     </div>
                     <h4>App Settings · ตั้งค่าแอป</h4>
                     <div class="set-card">
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-moon"></i><div class="sr-text">Dark Mode <span class="th">โหมดมืด</span></div></div><div class="toggle" id="darkToggle" onclick="toggleDark()" role="switch" tabindex="0"></div></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-bell"></i><div class="sr-text">Notifications <span class="th">การแจ้งเตือน</span></div></div><div class="toggle on" id="notiToggle" onclick="toggleNoti()" role="switch" tabindex="0"></div></div>
-                        <div class="set-row clickable" onclick="openPolicy()"><div class="set-row-left"><i class="fas fa-shield-halved"></i><div class="sr-text">Privacy Policy <span class="th">นโยบายความเป็นส่วนตัว</span></div></div><i class="fas fa-chevron-right chev"></i></div>
-                        <div class="set-row"><div class="set-row-left"><i class="fas fa-circle-info"></i><div class="sr-text">About <span class="th">เกี่ยวกับแอป</span></div></div><span class="ver">v 0.2.0</span></div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-moon"></i>
+                                <div class="sr-text">Dark Mode <span class="th">โหมดมืด</span></div>
+                            </div>
+                            <div class="toggle" id="darkToggle" onclick="toggleDark()" role="switch" tabindex="0"></div>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-bell"></i>
+                                <div class="sr-text">Notifications <span class="th">การแจ้งเตือน</span></div>
+                            </div>
+                            <div class="toggle on" id="notiToggle" onclick="toggleNoti()" role="switch" tabindex="0">
+                            </div>
+                        </div>
+                        <div class="set-row clickable" onclick="openPolicy()">
+                            <div class="set-row-left"><i class="fas fa-shield-halved"></i>
+                                <div class="sr-text">Privacy Policy <span class="th">นโยบายความเป็นส่วนตัว</span></div>
+                            </div><i class="fas fa-chevron-right chev"></i>
+                        </div>
+                        <div class="set-row">
+                            <div class="set-row-left"><i class="fas fa-circle-info"></i>
+                                <div class="sr-text">About <span class="th">เกี่ยวกับแอป</span></div>
+                            </div><span class="ver">v 0.2.0</span>
+                        </div>
                     </div>
                     <h4>Data · ข้อมูล</h4>
                     <div class="set-card">
-                        <div class="set-row clickable" onclick="exportCSV()"><div class="set-row-left"><i class="fas fa-file-arrow-down"></i><div class="sr-text">Export readings (CSV) <span class="th">ส่งออกข้อมูลน้ำตาล</span></div></div><i class="fas fa-chevron-right chev"></i></div>
-                        <div class="set-row clickable" onclick="seedSampleData()"><div class="set-row-left"><i class="fas fa-wand-magic-sparkles"></i><div class="sr-text">Load sample data <span class="th">โหลดข้อมูลตัวอย่าง</span></div></div><i class="fas fa-chevron-right chev"></i></div>
+                        <div class="set-row clickable" onclick="exportCSV()">
+                            <div class="set-row-left"><i class="fas fa-file-arrow-down"></i>
+                                <div class="sr-text">Export readings (CSV) <span class="th">ส่งออกข้อมูลน้ำตาล</span>
+                                </div>
+                            </div><i class="fas fa-chevron-right chev"></i>
+                        </div>
+                        <div class="set-row clickable" onclick="seedSampleData()">
+                            <div class="set-row-left"><i class="fas fa-wand-magic-sparkles"></i>
+                                <div class="sr-text">Load sample data <span class="th">โหลดข้อมูลตัวอย่าง</span></div>
+                            </div><i class="fas fa-chevron-right chev"></i>
+                        </div>
                     </div>
                     <div class="set-card" style="margin-top:4px">
-                        <div class="set-row danger clickable" onclick="logout()"><div class="set-row-left"><i class="fas fa-right-from-bracket"></i><div class="sr-text">Logout &amp; clear data <span class="th">ออกจากระบบและล้างข้อมูล</span></div></div><i class="fas fa-chevron-right chev"></i></div>
+                        <div class="set-row danger clickable" onclick="logout()">
+                            <div class="set-row-left"><i class="fas fa-right-from-bracket"></i>
+                                <div class="sr-text">Logout &amp; clear data <span
+                                        class="th">ออกจากระบบและล้างข้อมูล</span></div>
+                            </div><i class="fas fa-chevron-right chev"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -371,8 +450,8 @@
                     <div class="fr">
                         <div class="fg"><label for="medDose">Dose <span class="th">ขนาดยา</span></label><input
                                 type="text" id="medDose" maxlength="20" placeholder="500 mg"></div>
-                        <div class="fg"><label for="medTime">Time <span class="th">เวลา</span></label><input
-                                type="time" id="medTime" value="08:00"></div>
+                        <div class="fg"><label for="medTime">Time <span class="th">เวลา</span></label><input type="time"
+                                id="medTime" value="08:00"></div>
                     </div>
                     <button class="btn btn-pri" onclick="saveMed()"><i class="fas fa-plus"></i> Add · เพิ่ม</button>
                 </div>
@@ -385,8 +464,10 @@
                     <h3>Update HbA1c <span class="th">อัปเดตค่าน้ำตาลสะสม</span></h3>
                     <div class="hb-prev" id="hbPrev"></div>
                     <div class="fg"><label for="hbVal">New HbA1c (%) <span class="th">ค่าล่าสุดจากแล็บ</span></label>
-                        <input type="number" step="0.1" id="hbVal" inputmode="decimal" placeholder="6.8"></div>
-                    <button class="btn btn-pri" onclick="saveHba1c()"><i class="fas fa-check"></i> Save · บันทึก</button>
+                        <input type="number" step="0.1" id="hbVal" inputmode="decimal" placeholder="6.8">
+                    </div>
+                    <button class="btn btn-pri" onclick="saveHba1c()"><i class="fas fa-check"></i> Save ·
+                        บันทึก</button>
                 </div>
             </div>
 
@@ -398,15 +479,22 @@
                     <div class="fg"><label for="editName">Name <span class="th">ชื่อ</span></label><input type="text"
                             id="editName" maxlength="40"></div>
                     <div class="fr">
-                        <div class="fg"><label for="editAge">Age <span class="th">อายุ</span></label><input type="number" id="editAge"></div>
-                        <div class="fg"><label for="editHeight">Height (cm) <span class="th">ส่วนสูง</span></label><input type="number" id="editHeight"></div>
+                        <div class="fg"><label for="editAge">Age <span class="th">อายุ</span></label><input
+                                type="number" id="editAge"></div>
+                        <div class="fg"><label for="editHeight">Height (cm) <span
+                                    class="th">ส่วนสูง</span></label><input type="number" id="editHeight"></div>
                     </div>
                     <div class="fr">
-                        <div class="fg"><label for="editWeight">Weight (kg) <span class="th">น้ำหนัก</span></label><input type="number" id="editWeight"></div>
-                        <div class="fg"><label for="editHba1c">HbA1c (%) <span class="th">น้ำตาลสะสม</span></label><input type="number" step="0.1" id="editHba1c"></div>
+                        <div class="fg"><label for="editWeight">Weight (kg) <span
+                                    class="th">น้ำหนัก</span></label><input type="number" id="editWeight"></div>
+                        <div class="fg"><label for="editHba1c">HbA1c (%) <span
+                                    class="th">น้ำตาลสะสม</span></label><input type="number" step="0.1" id="editHba1c">
+                        </div>
                     </div>
-                    <div class="fg"><label for="editTarget">Target BS (mg/dL) <span class="th">เป้าหมายน้ำตาล</span></label><input type="number" id="editTarget"></div>
-                    <button class="btn btn-pri" onclick="saveEditProfile()" style="margin-top:4px">Save · บันทึก</button>
+                    <div class="fg"><label for="editTarget">Target BS (mg/dL) <span
+                                class="th">เป้าหมายน้ำตาล</span></label><input type="number" id="editTarget"></div>
+                    <button class="btn btn-pri" onclick="saveEditProfile()" style="margin-top:4px">Save ·
+                        บันทึก</button>
                 </div>
             </div>
 
@@ -418,15 +506,19 @@
                     <div class="policy-body">
                         <p><strong>Data Collection · การเก็บข้อมูล</strong><br>This application collects personal health
                             data including name, age, weight, height, HbA1c levels, blood sugar readings, and medication
-                            logs to provide personalized health management recommendations.<br>แอปนี้เก็บข้อมูลสุขภาพส่วนบุคคล เพื่อให้คำแนะนำที่เหมาะสม</p>
+                            logs to provide personalized health management
+                            recommendations.<br>แอปนี้เก็บข้อมูลสุขภาพส่วนบุคคล เพื่อให้คำแนะนำที่เหมาะสม</p>
                         <p><strong>Data Storage · การจัดเก็บ</strong><br>All data is stored locally on your device using
-                            localStorage. No data is transmitted to external servers in this version.<br>ข้อมูลทั้งหมดจัดเก็บในเครื่องของคุณ ไม่มีการส่งข้อมูลออกภายนอก</p>
+                            localStorage. No data is transmitted to external servers in this
+                            version.<br>ข้อมูลทั้งหมดจัดเก็บในเครื่องของคุณ ไม่มีการส่งข้อมูลออกภายนอก</p>
                         <p><strong>Purpose · วัตถุประสงค์</strong><br>This app is developed as part of the research:
                             "Development and Evaluation of a Personalized Health Chatbot with a Points System to Improve
                             Self-Management in Patients with Type 2 Diabetes"<br>แอปนี้พัฒนาเป็นส่วนหนึ่งของงานวิจัย</p>
                         <p><strong>Medical Disclaimer · ข้อสงวนทางการแพทย์</strong><br>This app is not a substitute for
-                            professional medical advice. Always consult your doctor.<br>แอปนี้ไม่ใช่การวินิจฉัยโรค ควรปรึกษาแพทย์เสมอ</p>
-                        <p><strong>Contact · ติดต่อ</strong><br>For questions, contact the research team.<br>สอบถามเพิ่มเติม ติดต่อทีมวิจัย</p>
+                            professional medical advice. Always consult your doctor.<br>แอปนี้ไม่ใช่การวินิจฉัยโรค
+                            ควรปรึกษาแพทย์เสมอ</p>
+                        <p><strong>Contact · ติดต่อ</strong><br>For questions, contact the research
+                            team.<br>สอบถามเพิ่มเติม ติดต่อทีมวิจัย</p>
                     </div>
                     <button class="btn btn-pri" onclick="closePolicy()" style="margin-top:12px">Close · ปิด</button>
                 </div>
@@ -437,7 +529,8 @@
                 <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Notifications">
                     <h3>Notifications <span class="th">การแจ้งเตือน</span></h3>
                     <div class="notif-list" id="notifList"></div>
-                    <button class="btn btn-pri" onclick="markAllRead()" style="margin-top:14px">Mark All as Read · อ่านทั้งหมดแล้ว</button>
+                    <button class="btn btn-pri" onclick="markAllRead()" style="margin-top:14px">Mark All as Read ·
+                        อ่านทั้งหมดแล้ว</button>
                 </div>
             </div>
 
@@ -458,13 +551,15 @@
                     <div class="lu-star"><i class="fas fa-star"></i></div>
                     <div class="lu-title">LEVEL UP!</div>
                     <div class="lu-level" id="luLevel">2</div>
-                    <p>Great work keeping up your health habits!<br><span class="th">เยี่ยมมาก! คุณดูแลสุขภาพได้ต่อเนื่อง</span></p>
+                    <p>Great work keeping up your health habits!<br><span class="th">เยี่ยมมาก!
+                            คุณดูแลสุขภาพได้ต่อเนื่อง</span></p>
                     <button class="btn btn-gold" onclick="closeModal('lvlUpModal')">Awesome! · เยี่ยม!</button>
                 </div>
             </div>
 
             <!-- ===== CONFIRM ===== -->
-            <div class="modal-overlay center" id="confirmModal" onclick="if(event.target===this)closeModal('confirmModal')">
+            <div class="modal-overlay center" id="confirmModal"
+                onclick="if(event.target===this)closeModal('confirmModal')">
                 <div class="center-card">
                     <div class="cf-ic" id="cfIc"><i class="fas fa-circle-question"></i></div>
                     <h3 id="cfTitle">Are you sure?</h3>
@@ -479,35 +574,53 @@
             <!-- ===== BOTTOM NAV ===== -->
             <nav class="bnav" id="bnav" aria-label="Main navigation">
                 <div class="bnav-inner">
-                    <div class="bnav-item active" data-page="home" onclick="nav('home')"><i class="fas fa-home"></i><span class="nav-label">Home<span class="nav-th">หน้าหลัก</span></span></div>
-                    <div class="bnav-item" data-page="dashboard" onclick="nav('dashboard')"><i class="fas fa-chart-pie"></i><span class="nav-label">Dashboard<span class="nav-th">สถิติ</span></span></div>
-                    <div class="bnav-item" data-page="chat" onclick="nav('chat')"><i class="fas fa-comment-medical"></i><span class="nav-label">Chat<span class="nav-th">แชท</span></span></div>
-                    <div class="bnav-item" data-page="ocr" onclick="nav('ocr')"><i class="fas fa-qrcode"></i><span class="nav-label">Scan<span class="nav-th">สแกน</span></span></div>
-                    <div class="bnav-item" data-page="settings" onclick="nav('settings')"><i class="fas fa-cog"></i><span class="nav-label">Settings<span class="nav-th">ตั้งค่า</span></span></div>
+                    <div class="bnav-item active" data-page="home" onclick="nav('home')"><i
+                            class="fas fa-home"></i><span class="nav-label">Home<span
+                                class="nav-th">หน้าหลัก</span></span></div>
+                    <div class="bnav-item" data-page="dashboard" onclick="nav('dashboard')"><i
+                            class="fas fa-chart-pie"></i><span class="nav-label">Dashboard<span
+                                class="nav-th">สถิติ</span></span></div>
+                    <div class="bnav-item" data-page="chat" onclick="nav('chat')"><i
+                            class="fas fa-comment-medical"></i><span class="nav-label">Chat<span
+                                class="nav-th">แชท</span></span></div>
+                    <div class="bnav-item" data-page="ocr" onclick="nav('ocr')"><i class="fas fa-qrcode"></i><span
+                            class="nav-label">Scan<span class="nav-th">สแกน</span></span></div>
+                    <div class="bnav-item" data-page="settings" onclick="nav('settings')"><i
+                            class="fas fa-cog"></i><span class="nav-label">Settings<span
+                                class="nav-th">ตั้งค่า</span></span></div>
                 </div>
             </nav>
 
             <!-- ===== CAMERA VIEWFINDER ===== -->
             <div class="cam-overlay" id="camOverlay">
                 <div class="cam-topbar">
-                    <button class="cam-btn" onclick="closeCamera()" aria-label="Close camera"><i class="fas fa-xmark"></i></button>
+                    <button class="cam-btn" onclick="closeCamera()" aria-label="Close camera"><i
+                            class="fas fa-xmark"></i></button>
                     <span class="cam-title">Medication Scanner<br><span class="th-inline">สแกนฉลากยา</span></span>
-                    <button class="cam-btn" id="camFlash" onclick="toggleFlash()" aria-label="Flash"><i class="fas fa-bolt"></i></button>
+                    <button class="cam-btn" id="camFlash" onclick="toggleFlash()" aria-label="Flash"><i
+                            class="fas fa-bolt"></i></button>
                 </div>
                 <div class="cam-viewfinder" id="camVf">
                     <video id="camVideo" playsinline muted autoplay></video>
                     <div class="cam-scan-frame">
-                        <div class="cam-corner tl"></div><div class="cam-corner tr"></div>
-                        <div class="cam-corner bl"></div><div class="cam-corner br"></div>
+                        <div class="cam-corner tl"></div>
+                        <div class="cam-corner tr"></div>
+                        <div class="cam-corner bl"></div>
+                        <div class="cam-corner br"></div>
                         <div class="cam-scan-line"></div>
                     </div>
-                    <p class="cam-hint">Position the medication label inside the frame<br><span class="th-inline">วางฉลากยาไว้ในกรอบ</span></p>
+                    <p class="cam-hint">Position the medication label inside the frame<br><span
+                            class="th-inline">วางฉลากยาไว้ในกรอบ</span></p>
                     <p class="cam-hint sm" id="camMode"></p>
                 </div>
                 <div class="cam-controls">
-                    <button class="cam-btn-sm" onclick="closeCamera();$('galleryInput').click()" aria-label="Gallery"><i class="fas fa-images"></i></button>
-                    <button class="cam-shutter" onclick="capturePhoto()" aria-label="Capture"><div class="cam-shutter-inner"></div></button>
-                    <button class="cam-btn-sm" onclick="switchCamera()" aria-label="Switch camera"><i class="fas fa-rotate"></i></button>
+                    <button class="cam-btn-sm" onclick="closeCamera();$('galleryInput').click()" aria-label="Gallery"><i
+                            class="fas fa-images"></i></button>
+                    <button class="cam-shutter" onclick="capturePhoto()" aria-label="Capture">
+                        <div class="cam-shutter-inner"></div>
+                    </button>
+                    <button class="cam-btn-sm" onclick="switchCamera()" aria-label="Switch camera"><i
+                            class="fas fa-rotate"></i></button>
                 </div>
             </div>
         </div>
